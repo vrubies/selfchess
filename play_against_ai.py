@@ -4,14 +4,15 @@ import chess
 import chess.svg
 import torch
 # from evaluation_dataset import *
-from train_regressive_model import EvaluationModel, config
+from train_regressive_model import EvaluationModel
 from utils import fen_to_808bits
 
 # Initialize the model first
-model = EvaluationModel(layer_count=config["layer_count"],batch_size=config["batch_size"],learning_rate=1e-3)
+config={"arch": [808,1000,1000,1], "batch_size": 512}
+model = EvaluationModel(arch=config["arch"], batch_size=config["batch_size"], learning_rate=1e-3)
 
 # Load the model state dictionary
-model.load_state_dict(torch.load("1694085972-batch_size-512-layer_count-4model.pth"))
+model.load_state_dict(torch.load("models/2023-09-08_14-28-01-batch_size-512-arch-808-1000-1000-1_model.pth"))
 
 # If you're planning to use the model only for inference, it's good to set it to evaluation mode
 model.eval()
